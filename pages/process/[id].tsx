@@ -1,11 +1,9 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CircularProgress,
-  Grid,
-  Typography,
-} from '@material-ui/core'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CircularProgress from '@material-ui/core/CircularProgress'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline'
 import PlayArrow from '@material-ui/icons/PlayArrow'
 import RestartIcon from '@material-ui/icons/Replay'
@@ -45,7 +43,7 @@ const SubProcess = () => {
 
   const confirmFlush = (name) => {
     materialDialog.confirmModal({
-      content: 'Apakah anda yakin nih pak?',
+      content: 'Are you sure to flush this process logs?',
       action: async () => {
         callAction({ id: name, action: 'flush' })
         return true

@@ -1,4 +1,5 @@
-import { Box, Typography } from '@material-ui/core'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import React, { useState } from 'react'
