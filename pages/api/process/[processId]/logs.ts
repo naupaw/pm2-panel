@@ -1,5 +1,5 @@
 import pm2 from 'pm2'
-import readLast from 'read-last-lines'
+import shelljs from 'shelljs'
 
 export default async (req, res) => {
   try {
@@ -17,12 +17,22 @@ export default async (req, res) => {
 
           if (desc.length > 0) {
             const data = desc[0]
-            const log = await readLast.read(data.pm2_env.pm_out_log_path, 100)
-            const errLog = await readLast.read(
-              data.pm2_env.pm_err_log_path,
-              100
+
+            const log = shelljs.tail(
+              { '-n': 100 },
+              data.pm2_env.pm_out_log_path
             )
-            return resolve({ data: { ...desc[0], log, errLog } })
+            const errLog = shelljs.tail(
+              { '-n': 100 },
+              data.pm2_env.pm_err_log_path
+            )
+
+            // const log = await readLast.read(data.pm2_env.pm_out_log_path, 100)
+            // const errLog = await readLast.read(
+            //   data.pm2_env.pm_err_log_path,
+            //   100
+            // )
+            return resolve({ data: { log, errLog } })
           }
           return resolve({ message: 'process not found' })
         })

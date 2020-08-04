@@ -1,16 +1,22 @@
-import {
-  AppBar,
-  colors,
-  Container,
-  Toolbar,
-  Typography,
-} from '@material-ui/core'
+import { AppBar, colors, Toolbar, Typography } from '@material-ui/core'
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { makeStyles, Theme } from '@material-ui/core/styles'
 import React, { Fragment } from 'react'
 
+const useStyles = makeStyles((theme: Theme) => {
+  return {
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+    },
+  }
+})
+
 const Base = ({ children }) => {
+  const classes = useStyles()
   return (
     <Fragment>
-      <AppBar position='fixed'>
+      <CssBaseline />
+      <AppBar className={classes.appBar} position='fixed'>
         <Toolbar>
           <Typography variant='h6'>Process Monitor</Typography>
         </Toolbar>
@@ -22,9 +28,7 @@ const Base = ({ children }) => {
         }}
       >
         <Toolbar />
-        <Container maxWidth={'lg'} style={{ marginTop: 30 }}>
-          {children}
-        </Container>
+        <div className='main'>{children}</div>
       </div>
     </Fragment>
   )

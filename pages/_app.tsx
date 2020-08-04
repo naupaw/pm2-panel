@@ -3,6 +3,8 @@ import { ThemeProvider } from '@material-ui/core/styles'
 import Head from 'next/head'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { SWRConfig } from 'swr'
+import { fetcher } from '../util/Api'
 import theme from '../util/theme'
 
 export default function MyApp(props) {
@@ -28,7 +30,14 @@ export default function MyApp(props) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Component {...pageProps} />
+        <SWRConfig
+          value={{
+            refreshInterval: 3000,
+            fetcher,
+          }}
+        >
+          <Component {...pageProps} />
+        </SWRConfig>
       </ThemeProvider>
     </React.Fragment>
   )

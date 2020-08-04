@@ -29,9 +29,7 @@ export default async (req, res) => {
           pm2.restart(id, (err) => {
             return theCallback(err)
           })
-        }
-
-        if (action === 'start') {
+        } else if (action === 'start') {
           pm2.start(
             {
               name: id,
@@ -40,12 +38,14 @@ export default async (req, res) => {
               return theCallback(err)
             }
           )
-        }
-
-        if (action === 'stop') {
+        } else if (action === 'stop') {
           pm2.stop(id, (err) => {
             return theCallback(err)
           })
+        } else if (action === 'flush') {
+          pm2.flush(id, (err) => theCallback(err))
+        } else {
+          return reject({ message: 'action not found' })
         }
       })
     })
